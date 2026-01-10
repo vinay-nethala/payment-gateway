@@ -1,284 +1,283 @@
-# Payment Gateway
+# 💳✨ PAYMENT GATEWAY SYSTEM ✨💳  
+### (UPI & Credit / Debit Card Payments – Test Mode)
 
-A full-stack payment gateway solution featuring a RESTful API, Merchant Dashboard, and Hosted Checkout Page. Built with Python (FastAPI), React, and PostgreSQL.
+🚀 A **fully containerized Payment Gateway simulation** inspired by **Razorpay / Stripe**.  
+This project demonstrates **real-world payment workflows** including order creation, secure payments, merchant dashboards, and transaction tracking — **without real money**.
 
-## 🚀 Features
+---
 
-* **Core API**: Order creation, payment processing, and status checks.
-* **Payment Methods**: Support for UPI (VPA validation) and Credit Cards (Luhn algorithm & network detection).
-* **Bank Simulation**: Realistic processing delays and random success/failure scenarios.
-* **Merchant Dashboard**: Real-time transaction analytics and history.
-* **Hosted Checkout**: Secure payment interface for customers.
-* **Dockerized**: Full stack deployment with a single command.
+## 🧠 WHAT THIS PROJECT DOES
 
-## 🛠️ Tech Stack
+✔ Creates orders via REST API  
+✔ Accepts payments via **UPI** and **Cards**  
+✔ Validates payments using industry rules  
+✔ Shows transactions in a **Merchant Dashboard**  
+✔ Runs fully using **Docker** (one command)  
 
-* **Backend**: Python, FastAPI, SQLAlchemy
-* **Database**: PostgreSQL 15
-* **Frontend**: React, Vite
-* **Containerization**: Docker, Docker Compose
+---
 
-## 🏁 Quick Start
+## 🧩 SYSTEM COMPONENTS
 
-1.  **Clone the repository**
-    ```bash
-    git clone <https://github.com/RAM-MEHER/payment-gateway>
-    cd payment-gateway
-    ```
+| Component | URL |
+|---------|-----|
+| 🧠 API Server | http://localhost:8000 |
+| 📊 Merchant Dashboard | http://localhost:3000 |
+| 🛒 Checkout Page | http://localhost:3001 |
+| 🗄 Database | PostgreSQL |
+| 🐳 Deployment | Docker Compose |
 
-2.  **Start the application**
-    ```bash
-    docker-compose up -d --build
-    ```
+---
 
-3.  **Access the services**
-    * **API**: http://localhost:8000
-    * **Dashboard**: http://localhost:3000 (Login: `test@example.com` / any password)
-    * **Checkout**: http://localhost:3001
+## 🏗️ ARCHITECTURE OVERVIEW
 
-## 🧪 Testing the Flow
-
-1.  **Log in to the Dashboard** at `http://localhost:3000`. Note the API Keys.
-2.  **Create an Order** via API:
-    ```bash
-    curl -X POST "http://localhost:8000/api/v1/orders" \
-         -H "X-Api-Key: key_test_abc123" \
-         -H "X-Api-Secret: secret_test_xyz789" \
-         -H "Content-Type: application/json" \
-         -d '{"amount": 50000, "currency": "INR", "receipt": "demo_1"}'
-    ```
-3.  **Copy the Order ID** from the response (e.g., `order_xyz...`).
-4.  **Open Checkout Page**: `http://localhost:3001/?order_id=order_xyz...`
-5.  **Complete Payment** using a test card (e.g., `4242 4242 4242 4242`).
-6.  **Verify** the transaction appears in the Dashboard.
-
-## 📂 Project Structure
-
-```text
-payment-gateway/
-├── docker-compose.yml              # Orchestration for DB, API, Dashboard, Checkout
-├── .env.example                    # Environment variables template
-├── README.md                       # Project documentation
-├── backend/                        # Backend Service (Port 8000)
-│   ├── Dockerfile                  # API Container definition
-│   ├── requirements.txt            # Python dependencies
-│   └── app/
-│       ├── __init__.py
-│       ├── main.py                 # Application entry point & CORS setup
-│       ├── database.py             # SQLAlchemy DB connection & session
-│       ├── models.py               # Database Models (Merchant, Order, Payment)
-│       ├── schemas.py              # Pydantic Schemas for Request/Response
-│       ├── auth.py                 # API Key authentication logic
-│       ├── utils.py                # Validators (Luhn, VPA, Expiry)
-│       └── routers/                # API Route Handlers
-│           ├── __init__.py
-│           ├── health.py           # Health checks
-│           ├── test_routes.py      # Test merchant verification
-│           ├── orders.py           # Order creation & retrieval
-│           ├── payments.py         # Payment processing (Authenticated)
-│           └── public.py           # Public endpoints for Checkout page
-├── frontend/                       # Merchant Dashboard (Port 3000)
-│   ├── Dockerfile                  # Dashboard Container definition
-│   ├── vite.config.js              # Vite configuration
-│   ├── package.json                # Node dependencies
-│   ├── index.html                  # React Entry HTML
-│   ├── public/                     # Static assets
-│   └── src/
-│       ├── main.jsx                # React Entry Point
-│       ├── App.jsx                 # Routing (Login, Dashboard, Transactions)
-│       ├── App.css                 # Global Styles & Theme
-│       └── pages/
-│           ├── Login.jsx           # Merchant Login Page
-│           ├── Dashboard.jsx       # Analytics & Stats Page
-│           └── Transactions.jsx    # Transaction History Table
-└── checkout-page/                  # Customer Checkout UI (Port 3001)
-    ├── Dockerfile                  # Checkout Container definition
-    ├── vite.config.js              # Vite configuration
-    ├── package.json                # Node dependencies
-    ├── index.html                  # React Entry HTML
-    ├── public/                     # Static assets
-    └── src/
-        ├── main.jsx                # React Entry Point
-        ├── App.jsx                 # Payment Flow Logic & UI
-        └── App.css                 # Checkout specific styles
+```
+Merchant / Client
+        |
+        v
+Dashboard (3000)
+        |
+        v
+API Server (8000)
+        |
+        v
+PostgreSQL Database
+        |
+        v
+Checkout Page (3001)
 ```
 
-## 🔌 API Documentation
+---
 
-The API runs on port `8000`. All protected endpoints require API Key authentication.
+## 🛠️ TECHNOLOGIES USED
 
-**Base URL:** `http://localhost:8000`
-
-### 🛡️ Authentication
-Protected endpoints require the following headers:
-* `X-Api-Key`: `<your_public_key>`
-* `X-Api-Secret`: `<your_secret_key>`
+🖥 Backend      : REST API (FastAPI / similar)  
+🎨 Frontend     : React  
+🗄 Database     : PostgreSQL  
+🔐 Security     : API Key + Secret  
+🐳 Deployment   : Docker & Docker Compose  
 
 ---
 
-### 1. Health Check
-Checks if the API service and Database are running correctly.
+## ⚙️ HOW TO RUN THE PROJECT
 
-* **Endpoint:** `GET /health`
-* **Access:** Public
-* **Response:**
-    ```json
-    {
-      "status": "healthy",
-      "database": "connected",
-      "timestamp": "2026-01-08T10:00:00Z"
-    }
-    ```
+### ✅ PREREQUISITES
+- Docker installed
+- Docker Compose enabled
 
 ---
 
-### 2. Orders (Merchant Operations)
-These endpoints are used by the merchant server to manage payment orders.
+### ▶️ START ALL SERVICES (ONE COMMAND)
 
-#### Create Order
-Creates a new payment order (ledger entry).
+```bash
+docker-compose up -d
+```
 
-* **Endpoint:** `POST /api/v1/orders`
-* **Access:** Protected (Requires Auth Headers)
-* **Request Body:**
-    ```json
-    {
-      "amount": 50000,          // Amount in paise (e.g., ₹500.00)
-      "currency": "INR",
-      "receipt": "receipt#123", // Merchant's internal reference
-      "notes": {
-        "customer_name": "Rahul",
-        "email": "rahul@example.com"
-      }
-    }
-    ```
-* **Response (201 Created):**
-    ```json
-    {
-      "id": "order_a1b2c3d4e5f6g7h8",
-      "amount": 50000,
-      "status": "created",
-      "created_at": "2026-01-08T10:05:00Z"
-    }
-    ```
+✨ This command will:
+- Start API server
+- Start Dashboard
+- Start Checkout page
+- Start Database
+- Seed test merchant automatically
 
-#### Get Order Details
-Fetches the current status of a specific order.
-
-* **Endpoint:** `GET /api/v1/orders/{order_id}`
-* **Access:** Protected
-* **Response:**
-    ```json
-    {
-      "id": "order_a1b2c3d4e5f6g7h8",
-      "amount": 50000,
-      "status": "paid",
-      "merchant_id": "550e8400-e29b-41d4-a716-446655440000"
-    }
-    ```
+NO manual setup needed ❌
 
 ---
 
-### 3. Payments (Server-to-Server)
-These endpoints allow merchants to process payments directly via API (Server-to-Server) or view transaction history.
+## 🧪 TEST MERCHANT (AUTO-CREATED)
 
-#### Create Payment (S2S)
-Process a payment using UPI or Card details directly.
+🔑 These credentials are **TEST MODE ONLY**
 
-* **Endpoint:** `POST /api/v1/payments`
-* **Access:** Protected
-* **Request Body (UPI Example):**
-    ```json
-    {
-      "order_id": "order_a1b2c3d4e5f6g7h8",
-      "method": "upi",
-      "vpa": "user@okicici"
-    }
-    ```
-* **Request Body (Card Example):**
-    ```json
-    {
-      "order_id": "order_a1b2c3d4e5f6g7h8",
-      "method": "card",
-      "card": {
-        "number": "4242424242424242",
-        "expiry_month": "12",
-        "expiry_year": "2030",
-        "cvv": "123",
-        "holder_name": "Test User"
-      }
-    }
-    ```
-* **Response:**
-    ```json
-    {
-      "id": "pay_x9y8z7...",
-      "status": "processing", // Initial status
-      "amount": 50000,
-      "method": "upi"
-    }
-    ```
+```
+X-Api-Key     : key_test_abc123
+X-Api-Secret  : secret_test_xyz789
+```
 
-#### List All Payments
-Fetches a list of all transactions for the Merchant Dashboard.
-
-* **Endpoint:** `GET /api/v1/payments`
-* **Access:** Protected
-* **Response:**
-    ```json
-    [
-      {
-        "id": "pay_1",
-        "amount": 50000,
-        "status": "success",
-        "created_at": "..."
-      },
-      {
-        "id": "pay_2",
-        "amount": 2500,
-        "status": "failed",
-        "created_at": "..."
-      }
-    ]
-    ```
+📌 NOTE:
+- Same for everyone
+- Auto-seeded on startup
+- Used for evaluation & testing
 
 ---
 
-### 4. Public Checkout (Browser)
-These endpoints are public and used by the Hosted Checkout Page. They do not require API Keys but must be linked to a valid Order ID.
+## 🔐 API AUTHENTICATION FORMAT
 
-#### Fetch Order for Checkout
-Used by the UI to display the amount to the customer.
+All API requests must include:
 
-* **Endpoint:** `GET /api/v1/public/orders/{order_id}`
-* **Access:** Public
-* **Response:**
-    ```json
-    {
-      "id": "order_a1b2...",
-      "amount": 50000,
-      "currency": "INR",
-      "merchant_name": "Test Merchant"
-    }
-    ```
+```
+X-Api-Key: key_test_abc123
+X-Api-Secret: secret_test_xyz789
+Content-Type: application/json
+```
 
-#### Process Public Payment
-Used by the Checkout UI to submit payment details securely.
+---
 
-* **Endpoint:** `POST /api/v1/public/payments`
-* **Access:** Public
-* **Request Body:** Same as the "Create Payment (S2S)" body above.
+## 🧾 STEP 1: CREATE ORDER (MANDATORY)
 
-#### Check Payment Status (Polling)
-Used by the UI to poll for the final status (Success/Failed) after processing.
+📍 Windows CMD / VS Code Terminal
 
-* **Endpoint:** `GET /api/v1/public/payments/{payment_id}`
-* **Access:** Public
-* **Response:**
-    ```json
-    {
-      "id": "pay_x9y8...",
-      "status": "success",
-      "error_code": null
-    }
-    ```
+```bash
+curl -X POST http://localhost:8000/api/v1/orders -H "X-Api-Key: key_test_abc123" -H "X-Api-Secret: secret_test_xyz789" -H "Content-Type: application/json" -d "{\"amount\":50000,\"currency\":\"INR\",\"receipt\":\"demo_1\"}"
+```
+
+📥 RESPONSE EXAMPLE:
+
+```json
+{
+  "id": "order_xxxxx",
+  "status": "created",
+  "amount": 50000,
+  "currency": "INR"
+}
+```
+
+📌 Save the **order_id** — required for payment
+
+---
+
+## 💳 STEP 2A: CREDIT / DEBIT CARD PAYMENT
+
+### 🧪 TEST CARD DETAILS
+
+```
+Card Number : 4242 4242 4242 4242
+Expiry      : 12 / 2026
+CVV         : 123
+holder name :Test User
+
+```
+
+### ▶️ API COMMAND
+
+```bash
+curl -X POST http://localhost:8000/api/v1/payments -H "X-Api-Key: key_test_abc123" -H "X-Api-Secret: secret_test_xyz789" -H "Content-Type: application/json" -d "{\"order_id\":\"order_xxxxx\",\"method\":\"card\",\"card\":{\"number\":\"4242424242424242\",\"expiry_month\":\"12\",\"expiry_year\":\"2026\",\"cvv\":\"123\",\"holder_name\":\"Test User\"}}"
+```
+
+### ✅ CARD VALIDATIONS
+✔ Luhn Algorithm  
+✔ Expiry Date Check  
+✔ Card Network Detection  
+✔ CVV Validation  
+✔ Only last 4 digits stored  
+
+---
+
+## 📱 STEP 2B: UPI PAYMENT
+
+### 🧪 TEST VPA
+
+```
+testuser@paytm
+```
+
+### ▶️ API COMMAND
+
+```bash
+curl -X POST http://localhost:8000/api/v1/payments -H "X-Api-Key: key_test_abc123" -H "X-Api-Secret: secret_test_xyz789" -H "Content-Type: application/json" -d "{\"order_id\":\"order_xxxxx\",\"method\":\"upi\",\"vpa\":\"testuser@paytm\"}"
+```
+
+### ✅ UPI VALIDATIONS
+✔ VPA format check  
+✔ Simulated bank response  
+
+---
+
+## 🔄 PAYMENT STATUS FLOW
+
+```
+created → processing → success / failed
+```
+
+📊 Simulated Success Rates:
+- 💳 Cards : 95%
+- 📱 UPI   : 90%
+
+---
+
+## 🛒 CHECKOUT PAGE (USER FLOW)
+
+🌐 Open in browser:
+
+```
+http://localhost:3001/?order_id=order_xxxxx
+```
+
+🧭 Steps:
+1. Order details displayed
+2. Choose payment method
+3. Enter details
+4. Click **Pay**
+5. View success / failure
+
+---
+
+## 📊 MERCHANT DASHBOARD
+
+🌐 Open:
+
+```
+http://localhost:3000
+```
+
+📌 Dashboard Displays:
+✔ API credentials  
+✔ Orders summary  
+✔ Successful payments  
+✔ Failed payments  
+✔ Transaction list  
+
+---
+
+## 🔒 SECURITY PRACTICES
+
+🔐 API Key authentication  
+🔐 No real payment gateway  
+🔐 No CVV storage  
+🔐 Card data masked  
+🔐 Test mode only  
+
+---
+
+## 🗄 DATABASE STRUCTURE
+
+Tables:
+- merchants
+- api_keys
+- orders
+- payments
+- transactions
+
+Relationships:
+- Merchant → Orders
+- Order → Payments
+- Payment → Transaction
+
+---
+
+## 🧪 TEST MODE DISCLAIMER
+
+⚠️ This is a **SIMULATION PROJECT**
+- No real money
+- No real banks
+- Built for learning & evaluation
+
+---
+
+## 🎯 PROJECT USE CASES
+
+🎓 Learning Payment Systems  
+💼 Internship / Job Evaluation  
+🧪 API Testing Practice  
+🧱 System Design Demonstration  
+
+---
+
+## ✅ PROJECT IS COMPLETE WHEN
+
+✔ Docker runs successfully  
+✔ Orders can be created  
+✔ Payments succeed  
+✔ Dashboard updates  
+
+---
+
+✨ END OF DOCUMENT ✨
