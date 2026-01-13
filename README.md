@@ -21,8 +21,7 @@ This project demonstrates **real-world payment workflows** including order creat
 | Component | URL |
 |---------|-----|
 | 🧠 API Server | http://localhost:8000 |
-| 📊 Merchant Dashboard | http://localhost:3000 |
-    (Login: test@example.com / any password
+| 📊 Merchant Dashboard | http://localhost:3000 (Login: test@example.com / any password |
 | 🛒 Checkout Page | http://localhost:3001 |
 | 🗄 Database | PostgreSQL |
 | 🐳 Deployment | Docker Compose |
